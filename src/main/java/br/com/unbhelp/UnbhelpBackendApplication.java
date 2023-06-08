@@ -11,7 +11,6 @@ import org.springframework.jmx.support.RegistrationPolicy;
 @EnableMBeanExport(registration= RegistrationPolicy.IGNORE_EXISTING)
 @EntityScan(basePackages = UnbhelpBackendApplication.PACOTE_ENTITIES)
 @EnableJpaRepositories(UnbhelpBackendApplication.PACOTE_REPOSITORY)
-//@ComponentScan(UnbhelpBackendApplication.BASE_COMPONENTE)
 public class UnbhelpBackendApplication {
 
     public static final String BASE_COMPONENTE = "br.com.unbhelp";
