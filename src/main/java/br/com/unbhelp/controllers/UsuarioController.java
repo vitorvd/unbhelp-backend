@@ -1,6 +1,6 @@
 package br.com.unbhelp.controllers;
 
-import br.com.unbhelp.domains.UserValidation;
+import br.com.unbhelp.domains.ValidacaoUsuario;
 import br.com.unbhelp.services.UsuarioService;
 import dtos.UsuarioDTO;
 import jakarta.ws.rs.Consumes;
@@ -27,13 +27,10 @@ public class UsuarioController {
     public ResponseEntity criarUsuario(@RequestBody UsuarioDTO usuarioDTO){
 
         try {
-            UserValidation.emailValidate(usuarioDTO.getEmail());
-        }catch (InvalidParameterException exception){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
-        }
+            ValidacaoUsuario.validacaoEmail(usuarioDTO.getEmail());
+            ValidacaoUsuario.validacaoSenha(usuarioDTO.getSenha());
+            ValidacaoUsuario.validacaoMatricula(usuarioDTO.getMatricula());
 
-        try {
-            UserValidation.passwordValidate(usuarioDTO.getSenha());
         }catch (InvalidParameterException exception){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
         }

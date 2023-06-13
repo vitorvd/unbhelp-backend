@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class UserValidation {
+public class ValidacaoUsuario {
 
     private static String regexEmail = "^(1[0-9]|9[0-9])((00|01|10))[0-9]{5}@aluno\\.unb\\.br$";
     private static Pattern patternEmail = Pattern.compile(regexEmail);
@@ -14,7 +14,7 @@ public class UserValidation {
     private static String regexRegister = "^(1[0-9]|9[0-9])((00|01|10))[0-9]{5}$";
     private static Pattern patternRegister = Pattern.compile(regexRegister);
 
-    public static void emailValidate(String email){
+    public static void validacaoEmail(String email){
         if(email == null)
             throw new InvalidParameterException("E-mail não pode ser nulo.");
 
@@ -24,7 +24,7 @@ public class UserValidation {
 
     }
 
-    public static void passwordValidate(String password){
+    public static void validacaoSenha(String password){
         if(password == null)
             throw new InvalidParameterException("Senha não pode ser nula.");
 
@@ -33,7 +33,7 @@ public class UserValidation {
             throw new InvalidParameterException("Senha inválida.");
     }
 
-    public static void registerValidate(String register){
+    public static void validacaoMatricula(String register){
         if(register == null)
             throw new InvalidParameterException("Matrícula não pode ser nula.");
 
