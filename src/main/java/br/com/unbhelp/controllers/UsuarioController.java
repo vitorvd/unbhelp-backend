@@ -38,4 +38,17 @@ public class UsuarioController {
         }
     }
 
+    @PutMapping("/{matricula}")
+    @Consumes(MediaType.APPLICATION_JSON_VALUE)
+    @Produces(MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity obterUsuarioPorMatriculaOuEmail(@PathVariable String matricula, @RequestBody UsuarioDTO usuarioDTO) {
+        try {
+            service.editarUsuario(matricula, usuarioDTO);
+            return ResponseEntity.status(HttpStatus.OK).body(String.format("Usuário (%s) editado.", matricula));
+        }catch (NotFoundException exception) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+        }
+    }
+
+
 }

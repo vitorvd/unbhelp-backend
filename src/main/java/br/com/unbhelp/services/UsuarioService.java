@@ -35,4 +35,14 @@ public class UsuarioService {
         return UsuarioDTO.fromEntity(entidade);
     }
 
+    public UsuarioDTO editarUsuario(String matricula, UsuarioDTO usuarioEditado) {
+        usuarioEditado.setMatricula(matricula);
+
+        obterUsuarioPorMatriculaOuEmail(matricula);
+
+        Usuario usuario = dao.save(Usuario.fromDTO(usuarioEditado));
+
+        return usuarioEditado;
+    }
+
 }
