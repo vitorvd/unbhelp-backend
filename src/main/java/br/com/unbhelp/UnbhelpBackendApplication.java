@@ -15,7 +15,7 @@ public class UnbhelpBackendApplication {
 
     public static final String BASE_COMPONENTE = "br.com.unbhelp";
     public static final String PACOTE_ENTITIES = BASE_COMPONENTE + ".entities";
-    public static final String PACOTE_REPOSITORY = BASE_COMPONENTE + ".repositories";
+    public static final String PACOTE_REPOSITORY = BASE_COMPONENTE + ".dao";
 
     public static void main(String[] args) {
         SpringApplication.run(UnbhelpBackendApplication.class, args);

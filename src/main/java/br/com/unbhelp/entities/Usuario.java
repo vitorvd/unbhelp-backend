@@ -1,6 +1,7 @@
 package br.com.unbhelp.entities;
 
 import br.com.unbhelp.domains.Curso;
+import dtos.UsuarioDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,5 +35,18 @@ public class Usuario {
     @Column
     @Enumerated(EnumType.STRING)
     private Curso curso;
+
+    public static Usuario fromDTO(UsuarioDTO dto) {
+        Usuario usuario = new Usuario().builder()
+                .matricula(dto.getMatricula())
+                .nomeCompleto(dto.getNomeCompleto())
+                .email(dto.getEmail())
+                .senha(dto.getSenha())
+                .apelido(dto.getApelido())
+                .curso(dto.getCurso())
+                .build();
+
+        return usuario;
+    }
 
 }

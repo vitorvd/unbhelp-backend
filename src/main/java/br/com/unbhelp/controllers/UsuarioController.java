@@ -1,8 +1,9 @@
 package br.com.unbhelp.controllers;
 
-import br.com.unbhelp.entities.Usuario;
 import br.com.unbhelp.services.UsuarioService;
+import dtos.UsuarioDTO;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.Produces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,17 +18,24 @@ public class UsuarioController {
     @Autowired
     private UsuarioService service;
 
-    @GetMapping
-    public String getUser() {
-        return "Hello World";
-    }
-
     @PostMapping
     @Consumes(MediaType.APPLICATION_JSON_VALUE)
     @Produces(MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity criarUsuario(@RequestBody Usuario usuario){
+    public ResponseEntity criarUsuario(@RequestBody UsuarioDTO usuarioDTO){
+        service.criarUsuario(usuarioDTO);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(usuario.toString());
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioDTO);
+    }
+    @GetMapping("/{chave}")
+    @Consumes(MediaType.APPLICATION_JSON_VALUE)
+    @Produces(MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity obterUsuarioPorMatriculaOuEmail(@PathVariable String chave) {
+        try {
+            UsuarioDTO usuarioDTO = service.obterUsuarioPorMatriculaOuEmail(chave);
+            return ResponseEntity.status(HttpStatus.FOUND).body(usuarioDTO);
+        }catch (NotFoundException exception) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+        }
     }
 
 }
