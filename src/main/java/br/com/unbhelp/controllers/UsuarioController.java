@@ -1,5 +1,6 @@
 package br.com.unbhelp.controllers;
 
+import br.com.unbhelp.domains.EmailValidation;
 import br.com.unbhelp.services.UsuarioService;
 import dtos.UsuarioDTO;
 import jakarta.ws.rs.Consumes;
@@ -10,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.InvalidParameterException;
 
 @RestController
 @RequestMapping(value = "/usuario")
@@ -22,6 +25,11 @@ public class UsuarioController {
     @Consumes(MediaType.APPLICATION_JSON_VALUE)
     @Produces(MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity criarUsuario(@RequestBody UsuarioDTO usuarioDTO){
+        try {
+            EmailValidation.validate(usuarioDTO.getEmail());
+        }catch (InvalidParameterException exception){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+        }
         service.criarUsuario(usuarioDTO);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioDTO);
