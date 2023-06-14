@@ -17,7 +17,11 @@ import lombok.NoArgsConstructor;
 @Table(name = "tb_professores")
 public class Professor {
 
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(nullable = false)
     private String email;
 
@@ -29,6 +33,7 @@ public class Professor {
 
     public static Professor fromDTO(ProfessorDTO dto){
         Professor professor = new Professor().builder()
+                .id(dto.getId())
                 .email(dto.getEmail())
                 .nome(dto.getNome())
                 .avaliacao(dto.getAvaliacao())

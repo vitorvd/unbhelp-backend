@@ -9,5 +9,7 @@ public interface ProfessorDAO extends DAO<Long, Professor> {
 
     public Professor findOneByEmail(String email);
 
-    public Professor findOneByName(String Nome);
+    public Professor findOneById(Long id);
+
+    public Professor findOneByNome(String nome);
 }

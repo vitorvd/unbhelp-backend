@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ProfessorDTO {
 
+    private Long id;
+
     private String email;
 
     private String nome;
@@ -20,6 +22,7 @@ public class ProfessorDTO {
 
     public static ProfessorDTO fromEntity(Professor professor){
         ProfessorDTO dto = new ProfessorDTO().builder()
+                .id(professor.getId())
                 .email(professor.getEmail())
                 .nome(professor.getNome())
                 .avaliacao(professor.getAvaliacao())
