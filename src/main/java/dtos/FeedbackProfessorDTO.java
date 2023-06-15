@@ -1,6 +1,6 @@
 package dtos;
 
-import br.com.unbhelp.entities.ProfessorFeedback;
+import br.com.unbhelp.entities.FeedbackProfessor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,14 +10,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProfessorFeedbackDTO {
+public class FeedbackProfessorDTO {
 
-    private long id;
+    private Long id;
 
     private String text;
 
-    public static ProfessorFeedbackDTO fromEntity(ProfessorFeedback feedback){
-        ProfessorFeedbackDTO dto = new ProfessorFeedbackDTO().builder()
+    private String professor;
+
+    public static FeedbackProfessorDTO fromEntity(FeedbackProfessor feedback){
+        FeedbackProfessorDTO dto = new FeedbackProfessorDTO().builder()
                 .id(feedback.getId())
                 .text(feedback.getText())
                 .build();

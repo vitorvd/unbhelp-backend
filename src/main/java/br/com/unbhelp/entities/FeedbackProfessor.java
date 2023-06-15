@@ -1,6 +1,6 @@
 package br.com.unbhelp.entities;
 
-import dtos.ProfessorFeedbackDTO;
+import dtos.FeedbackProfessorDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name="tb_feedbacks")
-public class ProfessorFeedback {
+@Table(name="tb_feedbacksProfessores")
+public class FeedbackProfessor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,17 +23,16 @@ public class ProfessorFeedback {
     private String text;
 
     @ManyToOne
-    @JoinColumn(name = "professor_id", referencedColumnName = "id")
+    @JoinColumn(name = "professor_nome", referencedColumnName = "nome")
     private Professor professor;
 
 
 
 
-    public static ProfessorFeedback fromDTO(ProfessorFeedbackDTO dto){
-        ProfessorFeedback feedback = new ProfessorFeedback().builder()
+    public static FeedbackProfessor fromDTO(FeedbackProfessorDTO dto){
+        FeedbackProfessor feedback = new FeedbackProfessor().builder()
                 .id(dto.getId())
                 .text(dto.getText())
-                .professor(Professor.builder().id(dto.getId()).build())
                 .build();
 
         return feedback;
