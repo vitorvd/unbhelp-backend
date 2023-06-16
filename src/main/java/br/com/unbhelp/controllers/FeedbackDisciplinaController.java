@@ -1,7 +1,8 @@
 package br.com.unbhelp.controllers;
 
 import br.com.unbhelp.entities.FeedbackDisciplina;
-import br.com.unbhelp.services.DisciplinaFeedbackService;
+import br.com.unbhelp.services.FeedbackDisciplinaService;
+import br.com.unbhelp.services.FeedbackDisciplinaService;
 import dtos.FeedbackDisciplinaDTO;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.Produces;
@@ -18,7 +19,7 @@ import java.util.List;
 public class FeedbackDisciplinaController {
 
     @Autowired
-    private DisciplinaFeedbackService service;
+    private FeedbackDisciplinaService service;
 
     @PostMapping
     @Consumes(MediaType.APPLICATION_JSON_VALUE)

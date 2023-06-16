@@ -1,7 +1,7 @@
 package br.com.unbhelp.controllers;
 
 import br.com.unbhelp.entities.FeedbackProfessor;
-import br.com.unbhelp.services.ProfessorFeedbackService;
+import br.com.unbhelp.services.FeedbackProfessorService;
 import dtos.FeedbackProfessorDTO;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.Produces;
@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping(value = "/professor_feedbacks")
 public class FeedbackProfessorController {
     @Autowired
-    private ProfessorFeedbackService service;
+    private FeedbackProfessorService service;
 
     @PostMapping
     @Consumes(MediaType.APPLICATION_JSON_VALUE)

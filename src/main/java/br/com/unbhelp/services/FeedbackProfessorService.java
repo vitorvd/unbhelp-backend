@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ProfessorFeedbackService {
+public class FeedbackProfessorService {
 
     @Autowired
     private FeedbackProfessorDAO dao;
@@ -29,7 +29,7 @@ public class ProfessorFeedbackService {
         return dto;
     }
 
-    public List<FeedbackProfessorDTO> obterTodosFeedbabcks(){
+    public List<FeedbackProfessorDTO> obterTodosFeedbacks(){
         List<FeedbackProfessor> feedbacks = dao.findAll();
 
         return feedbacks.stream().map(feedback -> FeedbackProfessorDTO.fromEntity(feedback)).collect(Collectors.toList());
