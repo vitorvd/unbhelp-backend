@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Builder
-@Table(name = "tb_feedbackDisciplinaProfessor")
+@Table(name = "tb_feedback_disciplina_professor")
 public class FeedbackDisciplinaProfessor {
 
     @Id
@@ -23,11 +23,11 @@ public class FeedbackDisciplinaProfessor {
     private String texto;
 
     @ManyToOne
-    @JoinColumn(name = "codigo_disciplina", referencedColumnName = "codigo")
+    @JoinColumn(name = "disciplina", referencedColumnName = "codigo")
     private Disciplina disciplina;
 
     @ManyToOne
-    @JoinColumn(name = "nome_professor", referencedColumnName = "nome")
+    @JoinColumn(name = "professor", referencedColumnName = "nome")
     private Professor professor;
 
     public static FeedbackDisciplinaProfessor fromDTO(FeedbackDisciplinaProfessorDTO dto){

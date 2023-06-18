@@ -44,7 +44,7 @@ public class FeedbackDisciplinaProfessorService {
         Disciplina disciplina = daoDisciplina.findOneByCodigo("0000");
         Professor professor = daoProfessor.findOneByNome("gabriel");
         if(disciplina != null && professor != null){
-            List<FeedbackDisciplinaProfessor> feedbacks = dao.findAllByCodigoENome(disciplina, professor);
+            List<FeedbackDisciplinaProfessor> feedbacks = dao.findAllByDisciplinaAndProfessor(disciplina, professor);
             return feedbacks;
         }
         return null;

@@ -23,7 +23,7 @@ public class FeedbackProfessor {
     private String text;
 
     @ManyToOne
-    @JoinColumn(name = "professor_nome", referencedColumnName = "nome")
+    @JoinColumn(name = "professor", referencedColumnName = "nome")
     private Professor professor;
 
 

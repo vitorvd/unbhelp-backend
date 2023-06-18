@@ -17,9 +17,9 @@ public class FeedbackDisciplinaProfessorDTO {
 
     private String texto;
 
-    private String disciplina_codigo;
+    private String disciplina;
 
-    private String nome_professor;
+    private String professor;
 
     public static FeedbackDisciplinaDTO fromEntity(FeedbackDisciplinaProfessor feedback){
         FeedbackDisciplinaDTO dto = new FeedbackDisciplinaDTO().builder()
