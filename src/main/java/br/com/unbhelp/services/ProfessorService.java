@@ -3,10 +3,15 @@ package br.com.unbhelp.services;
 import br.com.unbhelp.dao.ProfessorDAO;
 import br.com.unbhelp.entities.Professor;
 import dtos.ProfessorDTO;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.Produces;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.print.attribute.standard.Media;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,6 +20,9 @@ public class ProfessorService {
     @Autowired
     private ProfessorDAO dao;
 
+    @GetMapping
+    @Consumes(MediaType.APPLICATION_JSON_VALUE)
+    @Produces(MediaType.APPLICATION_JSON_VALUE)
     public ProfessorDTO obterProfessorPorEmailOuNome(String chave) throws NotFoundException {
         Professor entidade = dao.findOneByEmail(chave);
 
@@ -29,6 +37,9 @@ public class ProfessorService {
 
     }
 
+    @GetMapping
+    @Consumes(MediaType.APPLICATION_JSON_VALUE)
+    @Produces(MediaType.APPLICATION_JSON_VALUE)
     public ProfessorDTO obterProfessorPorId(Long id, String nome) throws NotFoundException {
         Professor entidade = dao.findOneById(id);
 
@@ -42,6 +53,9 @@ public class ProfessorService {
 
     }
 
+    @GetMapping
+    @Consumes(MediaType.APPLICATION_JSON_VALUE)
+    @Produces(MediaType.APPLICATION_JSON_VALUE)
     public List<ProfessorDTO> obterTodosProfessores(){
         List<Professor> professores = dao.findAll();
 

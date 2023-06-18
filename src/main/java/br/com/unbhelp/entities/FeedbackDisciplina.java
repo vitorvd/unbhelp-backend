@@ -24,7 +24,7 @@ public class FeedbackDisciplina {
 
     @ManyToOne
     @JoinColumn(name = "disciplina_codigo", referencedColumnName = "codigo")
-    private Disciplina disciplina;
+    private Disciplina codigo;
 
     public static FeedbackDisciplina fromDTO(FeedbackDisciplinaDTO dto){
         FeedbackDisciplina feedback = new FeedbackDisciplina().builder()

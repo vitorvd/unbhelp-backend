@@ -1,5 +1,7 @@
 package br.com.unbhelp.controllers;
 
+import br.com.unbhelp.dao.DisciplinaDAO;
+import br.com.unbhelp.entities.Disciplina;
 import br.com.unbhelp.entities.FeedbackDisciplina;
 import br.com.unbhelp.services.FeedbackDisciplinaService;
 import br.com.unbhelp.services.FeedbackDisciplinaService;
@@ -7,6 +9,7 @@ import dtos.FeedbackDisciplinaDTO;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.Produces;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +23,9 @@ public class FeedbackDisciplinaController {
 
     @Autowired
     private FeedbackDisciplinaService service;
+
+    @Autowired
+    private DisciplinaDAO daoDisciplina;
 
     @PostMapping
     @Consumes(MediaType.APPLICATION_JSON_VALUE)
@@ -37,6 +43,7 @@ public class FeedbackDisciplinaController {
         List<FeedbackDisciplina> feedbacksList = service.obterFeedbackPorDisciplina();
         return ResponseEntity.status(HttpStatus.OK).body(feedbacksList);
     }
+
 
 
 

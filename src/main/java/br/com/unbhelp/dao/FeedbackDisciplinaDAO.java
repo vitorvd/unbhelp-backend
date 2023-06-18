@@ -13,5 +13,5 @@ public interface FeedbackDisciplinaDAO extends DAO<Long, FeedbackDisciplina> {
 
     public FeedbackDisciplina findOneById(Long id);
 
-    public List<FeedbackDisciplina> findAllByDisciplina(Disciplina codigo);
+    public List<FeedbackDisciplina> findAllByCodigo(Disciplina codigo);
 }
