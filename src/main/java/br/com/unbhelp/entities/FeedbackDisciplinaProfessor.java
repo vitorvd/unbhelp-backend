@@ -23,12 +23,12 @@ public class FeedbackDisciplinaProfessor {
     private String texto;
 
     @ManyToOne
-    @JoinColumn(name = "disciplina", referencedColumnName = "codigo")
-    private Disciplina disciplina;
+    @JoinColumn(name = "codigo_disciplina", referencedColumnName = "codigo")
+    private Disciplina codigoDisciplina;
 
     @ManyToOne
-    @JoinColumn(name = "professor", referencedColumnName = "nome")
-    private Professor professor;
+    @JoinColumn(name = "nome_professor", referencedColumnName = "nome")
+    private Professor nomeProfessor;
 
     public static FeedbackDisciplinaProfessor fromDTO(FeedbackDisciplinaProfessorDTO dto){
         FeedbackDisciplinaProfessor feedback = new FeedbackDisciplinaProfessor().builder()

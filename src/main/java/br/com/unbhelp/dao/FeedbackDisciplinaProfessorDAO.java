@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface FeedbackDisciplinaProfessorDAO extends DAO<Long, FeedbackDisciplinaProfessor> {
 
-    public List<FeedbackDisciplinaProfessor> findAllByDisciplinaAndProfessor(Disciplina disciplina, Professor professor);
+    public List<FeedbackDisciplinaProfessor> findAllByDisciplinaAndProfessor(String codigoDisciplina, String nomeProfessor);
 
 
 }

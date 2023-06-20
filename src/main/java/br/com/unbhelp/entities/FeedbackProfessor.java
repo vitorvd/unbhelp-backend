@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name="tb_feedbacksProfessores")
+@Table(name="tb_feedbacks_professores")
 public class FeedbackProfessor {
 
     @Id
