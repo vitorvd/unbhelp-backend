@@ -34,18 +34,14 @@ public class FeedbackProfessorService {
         return dto;
     }
 
-    @GetMapping()
-    @Consumes(MediaType.APPLICATION_JSON_VALUE)
-    @Produces(MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
     public List<FeedbackProfessorDTO> obterTodosFeedbacks(){
         List<FeedbackProfessor> feedbacks = dao.findAll();
 
         return feedbacks.stream().map(feedback -> FeedbackProfessorDTO.fromEntity(feedback)).collect(Collectors.toList());
     }
 
-    @GetMapping
-    @Consumes(MediaType.APPLICATION_JSON_VALUE)
-    @Produces(MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
     public List<FeedbackProfessor> obterFeedbackPorProfessor(){
         Professor professor = daoProfessor.findOneByNome("gabriel");
         if(professor != null) {

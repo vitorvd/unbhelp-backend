@@ -16,8 +16,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "tb_professores")
 public class Professor {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

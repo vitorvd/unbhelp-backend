@@ -30,6 +30,7 @@ public class FeedbackDisciplina {
         FeedbackDisciplina feedback = new FeedbackDisciplina().builder()
                 .id(dto.getId())
                 .texto(dto.getTexto())
+                .codigo(Disciplina.fromDTO(dto.getDisciplinaDTO()))
                 .build();
         return feedback;
     }

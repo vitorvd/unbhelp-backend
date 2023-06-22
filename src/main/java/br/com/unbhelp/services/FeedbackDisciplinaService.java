@@ -30,23 +30,18 @@ public class FeedbackDisciplinaService {
     @Transactional
     public FeedbackDisciplinaDTO criarFeedback(FeedbackDisciplinaDTO dto){
         FeedbackDisciplina entidade = FeedbackDisciplina.fromDTO(dto);
+
         dao.save(entidade);
 
+        dto.setId(entidade.getId());
         return dto;
     }
-
-    @GetMapping
-    @Consumes(MediaType.APPLICATION_JSON_VALUE)
-    @Produces(MediaType.APPLICATION_JSON_VALUE)
     public List<FeedbackDisciplinaDTO> obterTodosFeedbacks(){
         List<FeedbackDisciplina> feedbacks = dao.findAll();
 
         return feedbacks.stream().map(feedback -> FeedbackDisciplinaDTO.fromEntity(feedback)).collect(Collectors.toList());
     }
 
-    @GetMapping
-    @Consumes(MediaType.APPLICATION_JSON_VALUE)
-    @Produces(MediaType.APPLICATION_JSON_VALUE)
     public List<FeedbackDisciplina> obterFeedbackPorDisciplina(){
         Disciplina disciplina = daoDisciplina.findOneByCodigo("0000");
         if(disciplina != null){

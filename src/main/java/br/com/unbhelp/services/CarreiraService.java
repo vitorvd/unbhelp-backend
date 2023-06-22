@@ -21,9 +21,6 @@ public class CarreiraService {
     @Autowired
     private CarreiraDAO dao;
 
-    @GetMapping
-    @Consumes(MediaType.APPLICATION_JSON_VALUE)
-    @Produces(MediaType.APPLICATION_JSON_VALUE)
     public CarreiraDTO obterCarreiraPorNome(String nome) throws NotFoundException {
         Carreira entidade = dao.findOneByNome(nome);
 
@@ -35,9 +32,6 @@ public class CarreiraService {
 
     }
 
-    @GetMapping
-    @Produces(MediaType.APPLICATION_JSON_VALUE)
-    @Consumes(MediaType.APPLICATION_JSON_VALUE)
     public List<CarreiraDTO> obterTodasCarreiras(){
         List<Carreira> entidades = dao.findAll();
 

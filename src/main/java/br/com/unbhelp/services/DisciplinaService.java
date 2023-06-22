@@ -21,9 +21,6 @@ public class DisciplinaService {
     @Autowired
     private DisciplinaDAO dao;
 
-    @GetMapping
-    @Produces(MediaType.APPLICATION_JSON_VALUE)
-    @Consumes(MediaType.APPLICATION_JSON_VALUE)
     public DisciplinaDTO obterDisciplinaPorCodigo(String codigo) throws NotFoundException{
         Disciplina entidade = dao.findOneByCodigo(codigo);
 
@@ -33,9 +30,6 @@ public class DisciplinaService {
         return DisciplinaDTO.fromEntity(entidade);
     }
 
-    @GetMapping
-    @Produces(MediaType.APPLICATION_JSON_VALUE)
-    @Consumes(MediaType.APPLICATION_JSON_VALUE)
     public List<DisciplinaDTO> obterTodasDisciplinas() {
         List<Disciplina> entidades = dao.findAll();
 

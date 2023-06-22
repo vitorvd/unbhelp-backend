@@ -20,9 +20,6 @@ public class ProfessorService {
     @Autowired
     private ProfessorDAO dao;
 
-    @GetMapping
-    @Consumes(MediaType.APPLICATION_JSON_VALUE)
-    @Produces(MediaType.APPLICATION_JSON_VALUE)
     public ProfessorDTO obterProfessorPorEmailOuNome(String chave) throws NotFoundException {
         Professor entidade = dao.findOneByEmail(chave);
 
@@ -37,9 +34,6 @@ public class ProfessorService {
 
     }
 
-    @GetMapping
-    @Consumes(MediaType.APPLICATION_JSON_VALUE)
-    @Produces(MediaType.APPLICATION_JSON_VALUE)
     public ProfessorDTO obterProfessorPorId(Long id, String nome) throws NotFoundException {
         Professor entidade = dao.findOneById(id);
 
@@ -53,9 +47,6 @@ public class ProfessorService {
 
     }
 
-    @GetMapping
-    @Consumes(MediaType.APPLICATION_JSON_VALUE)
-    @Produces(MediaType.APPLICATION_JSON_VALUE)
     public List<ProfessorDTO> obterTodosProfessores(){
         List<Professor> professores = dao.findAll();
 

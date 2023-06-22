@@ -16,12 +16,15 @@ public class FeedbackDisciplinaDTO {
 
     private String texto;
 
-    private String disciplina_codigo;
+    private String codigoDisciplina;
+
+    private DisciplinaDTO disciplinaDTO;
 
     public static FeedbackDisciplinaDTO fromEntity(FeedbackDisciplina feedback){
         FeedbackDisciplinaDTO dto = new FeedbackDisciplinaDTO().builder()
                 .id(feedback.getId())
                 .texto(feedback.getTexto())
+                .disciplinaDTO(DisciplinaDTO.fromEntity(feedback.getCodigo()))
                 .build();
         return dto;
 
