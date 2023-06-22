@@ -3,18 +3,15 @@ package br.com.unbhelp.services;
 import br.com.unbhelp.dao.DisciplinaDAO;
 import br.com.unbhelp.dao.FeedbackDisciplinaProfessorDAO;
 import br.com.unbhelp.dao.ProfessorDAO;
-import br.com.unbhelp.entities.Disciplina;
 import br.com.unbhelp.entities.FeedbackDisciplinaProfessor;
-import br.com.unbhelp.entities.Professor;
 import dtos.FeedbackDisciplinaProfessorDTO;
+import jakarta.persistence.criteria.Predicate;
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.Produces;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -37,18 +34,15 @@ public class FeedbackDisciplinaProfessorService {
         return dto;
     }
 
-    @GetMapping
-    @Consumes(MediaType.APPLICATION_JSON_VALUE)
-    @Produces(MediaType.APPLICATION_JSON_VALUE)
-    public List<FeedbackDisciplinaProfessor> obterFeedbackPorDisciplinaEProfessor(){
-        Disciplina disciplina = daoDisciplina.findOneByCodigo("0000");
-        Professor professor = daoProfessor.findOneByNome("gabriel");
-        if(disciplina != null && professor != null){
-            List<FeedbackDisciplinaProfessor> feedbacks = dao.findAllByDisciplinaAndProfessor("0000", "gabriel35");
-            return feedbacks;
-        }
-        return null;
-    }
 
+    public List<FeedbackDisciplinaProfessor> obterFeedbacks(FeedbackDisciplinaProfessorDTO dto){
+        return this.dao.findAll((root, query, builder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            if(dto.getTexto() != null)
+                predicates.add(builder.like(builder.lower(root.get("texto")), dto.getTexto().toLowerCase()));
+            return builder.and(predicates.toArray(new Predicate[predicates.size()]));
+        });
+    }
 
 }

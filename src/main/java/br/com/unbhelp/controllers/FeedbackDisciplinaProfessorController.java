@@ -38,8 +38,8 @@ public class FeedbackDisciplinaProfessorController {
     @GetMapping
     @Produces(MediaType.APPLICATION_JSON_VALUE)
     @Consumes(MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity obterFeedbackPorDisciplinaEProfessor(){
-        List<FeedbackDisciplinaProfessor> feedbacksList = service.obterFeedbackPorDisciplinaEProfessor();
+    public ResponseEntity obterFeedbackPorDisciplinaEProfessor(FeedbackDisciplinaProfessorDTO dto){
+        List<FeedbackDisciplinaProfessor> feedbacksList = service.obterFeedbacks(dto);
         return ResponseEntity.status(HttpStatus.OK).body(feedbacksList);
     }
 
