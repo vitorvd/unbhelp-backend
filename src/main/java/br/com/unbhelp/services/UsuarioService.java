@@ -2,7 +2,7 @@ package br.com.unbhelp.services;
 
 import br.com.unbhelp.dao.UsuarioDAO;
 import br.com.unbhelp.entities.Usuario;
-import dtos.UsuarioDTO;
+import br.com.unbhelp.dtos.UsuarioDTO;
 import jakarta.security.auth.message.AuthException;
 import jakarta.ws.rs.NotAuthorizedException;
 import jakarta.ws.rs.NotFoundException;

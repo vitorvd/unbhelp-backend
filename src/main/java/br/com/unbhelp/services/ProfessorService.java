@@ -2,16 +2,11 @@ package br.com.unbhelp.services;
 
 import br.com.unbhelp.dao.ProfessorDAO;
 import br.com.unbhelp.entities.Professor;
-import dtos.ProfessorDTO;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.Produces;
+import br.com.unbhelp.dtos.ProfessorDTO;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.print.attribute.standard.Media;
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -4,16 +4,10 @@ import br.com.unbhelp.dao.DisciplinaDAO;
 import br.com.unbhelp.dao.FeedbackDisciplinaDAO;
 import br.com.unbhelp.entities.Disciplina;
 import br.com.unbhelp.entities.FeedbackDisciplina;
-import dtos.FeedbackDisciplinaDTO;
+import br.com.unbhelp.dtos.FeedbackDisciplinaDTO;
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.Produces;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.stream.Collectors;

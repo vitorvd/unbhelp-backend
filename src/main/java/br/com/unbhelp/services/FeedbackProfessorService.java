@@ -4,15 +4,10 @@ import br.com.unbhelp.dao.FeedbackProfessorDAO;
 import br.com.unbhelp.dao.ProfessorDAO;
 import br.com.unbhelp.entities.FeedbackProfessor;
 import br.com.unbhelp.entities.Professor;
-import dtos.FeedbackProfessorDTO;
+import br.com.unbhelp.dtos.FeedbackProfessorDTO;
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.Produces;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 import java.util.stream.Collectors;

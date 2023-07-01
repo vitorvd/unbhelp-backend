@@ -2,7 +2,7 @@ package br.com.unbhelp.controllers;
 
 import br.com.unbhelp.domains.ValidacaoUsuario;
 import br.com.unbhelp.services.UsuarioService;
-import dtos.UsuarioDTO;
+import br.com.unbhelp.dtos.UsuarioDTO;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.Produces;

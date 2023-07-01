@@ -2,18 +2,13 @@ package br.com.unbhelp.services;
 
 import br.com.unbhelp.entities.Disciplina;
 import br.com.unbhelp.dao.DisciplinaDAO;
-import dtos.DisciplinaDTO;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.Produces;
+import br.com.unbhelp.dtos.DisciplinaDTO;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class DisciplinaService {

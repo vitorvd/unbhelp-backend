@@ -1,7 +1,7 @@
 package br.com.unbhelp.controllers;
 
 import br.com.unbhelp.services.ProfessorService;
-import dtos.ProfessorDTO;
+import br.com.unbhelp.dtos.ProfessorDTO;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.Produces;
 import javassist.NotFoundException;

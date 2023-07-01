@@ -1,9 +1,7 @@
 package br.com.unbhelp.controllers;
 
-import br.com.unbhelp.entities.Disciplina;
 import br.com.unbhelp.services.DisciplinaService;
-import dtos.DisciplinaDTO;
-import dtos.FeedbackDisciplinaDTO;
+import br.com.unbhelp.dtos.DisciplinaDTO;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.Produces;
 import javassist.NotFoundException;

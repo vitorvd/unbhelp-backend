@@ -1,51 +1,46 @@
 package br.com.unbhelp.autenticacao;
 
 import br.com.unbhelp.contexto.ContextoManager;
-import jakarta.annotation.Priority;
-import jakarta.annotation.security.PermitAll;
 import jakarta.security.auth.message.AuthException;
+import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.ws.rs.Priorities;
-import jakarta.ws.rs.container.ContainerRequestContext;
-import jakarta.ws.rs.container.ContainerRequestFilter;
-import jakarta.ws.rs.container.ResourceInfo;
-import jakarta.ws.rs.core.Context;
-import jakarta.ws.rs.ext.Provider;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.lang.annotation.Annotation;
 
-@Provider
-@Priority(Priorities.AUTHENTICATION)
-public class AuthFilter implements ContainerRequestFilter {
+@Component
+public class AuthFilter implements Filter {
 
     @Autowired
     private ContextoManager contextManager;
 
-    @Context
-    protected HttpServletRequest servletRequest;
-
-    @Context
-    protected ResourceInfo resourceInfo;
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+    }
 
     @SneakyThrows
     @Override
-    public void filter(ContainerRequestContext containerRequestContext) throws IOException {
-        if (!this.annotationIsPresent(PermitAll.class) && !containerRequestContext.getMethod().equalsIgnoreCase("OPTIONS")) {
-            final String token = containerRequestContext.getHeaderString("authorization");
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        final HttpServletRequest request = (HttpServletRequest) servletRequest;
+        final HttpServletResponse response = (HttpServletResponse) servletResponse;
+
+        if (!request.getRequestURI().equals("/auth")) {
+            final String token = request.getHeaders("authorization").nextElement();
 
             if (token == null || !this.contextManager.existeToken(token))
                 throw new AuthException("Você não está autenticado na aplicação.");
 
-            this.servletRequest.setAttribute("TOKEN_USER_AUTHORIZATION", token);
-            this.servletRequest.setAttribute("TOKEN_USER", this.contextManager.obterUsuarioPorToken(token));
         }
+
+        filterChain.doFilter(request, response);
+
     }
 
-    protected boolean annotationIsPresent(Class<? extends Annotation> annotationClass) {
-        return this.resourceInfo.getResourceMethod().isAnnotationPresent(annotationClass) || this.resourceInfo.getResourceClass().isAnnotationPresent(annotationClass);
-    }
+    @Override
+    public void destroy() {
 
+    }
 }

@@ -2,7 +2,7 @@ package br.com.unbhelp.controllers;
 
 import br.com.unbhelp.entities.FeedbackProfessor;
 import br.com.unbhelp.services.FeedbackProfessorService;
-import dtos.FeedbackProfessorDTO;
+import br.com.unbhelp.dtos.FeedbackProfessorDTO;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.Produces;
 import org.springframework.beans.factory.annotation.Autowired;

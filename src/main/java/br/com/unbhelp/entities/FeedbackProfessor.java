@@ -1,6 +1,6 @@
 package br.com.unbhelp.entities;
 
-import dtos.FeedbackProfessorDTO;
+import br.com.unbhelp.dtos.FeedbackProfessorDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
