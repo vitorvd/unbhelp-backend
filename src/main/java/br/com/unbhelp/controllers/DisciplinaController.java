@@ -1,9 +1,9 @@
 package br.com.unbhelp.controllers;
 
-import br.com.unbhelp.entities.Disciplina;
+import br.com.unbhelp.dtos.FeedbackDisciplinaDTO;
+import br.com.unbhelp.entities.FeedbackDisciplina;
 import br.com.unbhelp.services.DisciplinaService;
-import dtos.DisciplinaDTO;
-import dtos.FeedbackDisciplinaDTO;
+import br.com.unbhelp.dtos.DisciplinaDTO;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.Produces;
 import javassist.NotFoundException;
@@ -41,6 +41,25 @@ public class DisciplinaController {
         List<DisciplinaDTO> disciplinaDTOList = service.obterTodasDisciplinas();
 
         return ResponseEntity.status(HttpStatus.FOUND).body(disciplinaDTOList);
+    }
+
+
+
+    @PostMapping("feedback-disciplina")
+    @Consumes(MediaType.APPLICATION_JSON_VALUE)
+    @Produces(MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity criarFeedback(@RequestBody FeedbackDisciplinaDTO feedbackDTO){
+        service.criarFeedback(feedbackDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(feedbackDTO);
+    }
+
+
+    @GetMapping("/{chave}")
+    @Consumes(MediaType.APPLICATION_JSON_VALUE)
+    @Produces(MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity obterFeedbackPorDisciplina(@PathVariable String chave){
+        List<FeedbackDisciplina> feedbacksList = service.obterFeedbackPorDisciplina(chave);
+        return ResponseEntity.status(HttpStatus.OK).body(feedbacksList);
     }
 
 

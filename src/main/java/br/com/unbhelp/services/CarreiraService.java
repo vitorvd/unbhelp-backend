@@ -2,15 +2,10 @@ package br.com.unbhelp.services;
 
 import br.com.unbhelp.dao.CarreiraDAO;
 import br.com.unbhelp.entities.Carreira;
-import br.com.unbhelp.entities.Disciplina;
-import dtos.CarreiraDTO;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.Produces;
+import br.com.unbhelp.dtos.CarreiraDTO;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 import java.util.stream.Collectors;

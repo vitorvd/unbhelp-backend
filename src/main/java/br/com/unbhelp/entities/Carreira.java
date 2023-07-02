@@ -1,6 +1,6 @@
 package br.com.unbhelp.entities;
 
-import dtos.CarreiraDTO;
+import br.com.unbhelp.dtos.CarreiraDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

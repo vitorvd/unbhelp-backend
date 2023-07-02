@@ -3,7 +3,7 @@ package br.com.unbhelp.controllers;
 import br.com.unbhelp.contexto.ContextoManager;
 import br.com.unbhelp.entities.Usuario;
 import br.com.unbhelp.services.UsuarioService;
-import dtos.UsuarioAuthDTO;
+import br.com.unbhelp.dtos.UsuarioAuthDTO;
 import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

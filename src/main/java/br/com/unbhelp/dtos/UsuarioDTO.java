@@ -1,4 +1,4 @@
-package dtos;
+package br.com.unbhelp.dtos;
 
 import br.com.unbhelp.domains.Curso;
 import br.com.unbhelp.entities.Usuario;

@@ -1,6 +1,6 @@
 package br.com.unbhelp.entities;
 
-import dtos.FeedbackProfessorDTO;
+import br.com.unbhelp.dtos.FeedbackProfessorDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,6 +30,7 @@ public class FeedbackProfessor {
         FeedbackProfessor feedback = new FeedbackProfessor().builder()
                 .id(dto.getId())
                 .text(dto.getText())
+                .professor(Professor.fromDTO(dto.getProfessorDTO()))
                 .build();
 
         return feedback;

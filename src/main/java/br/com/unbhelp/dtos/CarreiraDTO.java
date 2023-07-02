@@ -1,7 +1,6 @@
-package dtos;
+package br.com.unbhelp.dtos;
 
 import br.com.unbhelp.entities.Carreira;
-import br.com.unbhelp.fachada.DAO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
