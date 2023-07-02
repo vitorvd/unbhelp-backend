@@ -22,7 +22,6 @@ public class ProfessorController {
     @Autowired
     private ProfessorService service;
 
-
     @GetMapping("/{chave}")
     @Consumes(MediaType.APPLICATION_JSON_VALUE)
     @Produces(MediaType.APPLICATION_JSON_VALUE)
@@ -35,8 +34,6 @@ public class ProfessorController {
         }
     }
 
-
-
     @PostMapping
     @Consumes(MediaType.APPLICATION_JSON_VALUE)
     @Produces(MediaType.APPLICATION_JSON_VALUE)
@@ -44,7 +41,6 @@ public class ProfessorController {
         service.criarFeedback(feedbackDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(feedbackDTO);
     }
-
 
     @GetMapping("/{nome}")
     @Consumes(MediaType.APPLICATION_JSON_VALUE)

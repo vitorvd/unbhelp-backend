@@ -25,6 +25,9 @@ public class ProfessorService {
     @Autowired
     private ProfessorDAO dao;
 
+    @Autowired
+    private FeedbackProfessorDAO daoFeedback;
+
     public ProfessorDTO obterProfessorPorEmailOuNome(String chave) throws NotFoundException {
         Professor entidade = dao.findOneByEmail(chave);
 
@@ -58,12 +61,6 @@ public class ProfessorService {
         return professores.stream().map(professor -> ProfessorDTO.fromEntity(professor)).collect(Collectors.toList());
     }
 
-    @Autowired
-    private FeedbackProfessorDAO daoFeedback;
-
-    @Autowired
-    private ProfessorDAO daoProfessor;
-
     @Transactional
     public FeedbackProfessorDTO criarFeedback(FeedbackProfessorDTO dto) {
         FeedbackProfessor entidade = FeedbackProfessor.fromDTO(dto);
@@ -81,7 +78,7 @@ public class ProfessorService {
 
     @Transactional
     public List<FeedbackProfessor> obterFeedbackPorProfessor(String nome){
-        Professor professor = daoProfessor.findOneByNome(nome);
+        Professor professor = dao.findOneByNome(nome);
         if(professor != null) {
             List<FeedbackProfessor> feedbacks = daoFeedback.findAllByProfessor(professor);
             return feedbacks;
