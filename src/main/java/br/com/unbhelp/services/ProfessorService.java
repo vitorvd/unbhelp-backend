@@ -62,8 +62,14 @@ public class ProfessorService {
     }
 
     @Transactional
-    public FeedbackProfessorDTO criarFeedback(FeedbackProfessorDTO dto) {
+    public FeedbackProfessorDTO criarFeedback(FeedbackProfessorDTO dto) throws NotFoundException {
+        Professor professor = dao.findOneByNome(dto.getNomeCompleto());
+
+        if(professor == null)
+            throw new NotFoundException(String.format("Professor (%s) não encontrado.", dto.getNomeCompleto()));
+
         FeedbackProfessor entidade = FeedbackProfessor.fromDTO(dto);
+        entidade.setProfessor(professor);
         daoFeedback.save(entidade);
 
         return dto;

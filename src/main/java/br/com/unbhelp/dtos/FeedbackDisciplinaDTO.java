@@ -14,9 +14,13 @@ public class FeedbackDisciplinaDTO {
 
     private Long id;
 
+    private String codigo;
+
+    private String anoSemestre;
+
     private String texto;
 
-    private String codigoDisciplina;
+    private double avaliacao;
 
     private DisciplinaDTO disciplinaDTO;
 
@@ -24,7 +28,10 @@ public class FeedbackDisciplinaDTO {
         FeedbackDisciplinaDTO dto = new FeedbackDisciplinaDTO().builder()
                 .id(feedback.getId())
                 .texto(feedback.getTexto())
-                .disciplinaDTO(DisciplinaDTO.fromEntity(feedback.getCodigo()))
+                .anoSemestre(feedback.getAnoSemestre())
+                .codigo(feedback.getDisciplina().getCodigo())
+                .avaliacao(feedback.getAvaliacao())
+                .disciplinaDTO(DisciplinaDTO.fromEntity(feedback.getDisciplina()))
                 .build();
         return dto;
 

@@ -14,16 +14,29 @@ public class FeedbackProfessorDTO {
 
     private Long id;
 
-    private String text;
+    private String nomeCompleto;
 
-    private String professor;
+    private boolean chamada;
+
+    private boolean trabalho;
+
+    private boolean prova;
+
+    private double avaliacao;
+
+    private String explicacao;
 
     private ProfessorDTO professorDTO;
 
     public static FeedbackProfessorDTO fromEntity(FeedbackProfessor feedback){
         FeedbackProfessorDTO dto = new FeedbackProfessorDTO().builder()
                 .id(feedback.getId())
-                .text(feedback.getText())
+                .chamada(feedback.isChamada())
+                .trabalho(feedback.isTrabalho())
+                .prova(feedback.isProva())
+                .avaliacao(feedback.getAvaliacao())
+                .explicacao(feedback.getExplicacao())
+                .nomeCompleto(feedback.getProfessor().getNome())
                 .professorDTO(ProfessorDTO.fromEntity(feedback.getProfessor()))
                 .build();
 

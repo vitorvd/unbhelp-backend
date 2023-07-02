@@ -20,7 +20,19 @@ public class FeedbackProfessor {
     private Long id;
 
     @Column(nullable = false)
-    private String text;
+    private boolean chamada;
+
+    @Column(nullable = false)
+    private boolean trabalho;
+
+    @Column(nullable = false)
+    private boolean prova;
+
+    @Column(nullable = false)
+    private double avaliacao;
+
+    @Column(nullable = false)
+    private String explicacao;
 
     @ManyToOne
     @JoinColumn(name = "professor", referencedColumnName = "id")
@@ -29,8 +41,11 @@ public class FeedbackProfessor {
     public static FeedbackProfessor fromDTO(FeedbackProfessorDTO dto){
         FeedbackProfessor feedback = new FeedbackProfessor().builder()
                 .id(dto.getId())
-                .text(dto.getText())
-                .professor(Professor.fromDTO(dto.getProfessorDTO()))
+                .chamada(dto.isChamada())
+                .trabalho(dto.isTrabalho())
+                .prova(dto.isProva())
+                .avaliacao(dto.getAvaliacao())
+                .explicacao(dto.getExplicacao())
                 .build();
 
         return feedback;

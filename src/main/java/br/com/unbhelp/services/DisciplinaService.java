@@ -29,10 +29,6 @@ public class DisciplinaService {
     @Autowired
     private FeedbackDisciplinaDAO daoFeedback;
 
-    @Autowired
-    private DisciplinaDAO daoDisciplina;
-
-
     public DisciplinaDTO obterDisciplinaPorCodigo(String codigo) throws NotFoundException{
         Disciplina entidade = dao.findOneByCodigo(codigo);
 
@@ -49,8 +45,14 @@ public class DisciplinaService {
     }
 
     @Transactional
-    public FeedbackDisciplinaDTO criarFeedback(FeedbackDisciplinaDTO dto){
+    public FeedbackDisciplinaDTO criarFeedback(FeedbackDisciplinaDTO dto) throws NotFoundException {
+        Disciplina disciplina = dao.findOneByCodigo(dto.getCodigo());
+
+        if(disciplina == null)
+            throw new NotFoundException(String.format("Disciplina (%s) não encontrada.", dto.getCodigo()));
+
         FeedbackDisciplina entidade = FeedbackDisciplina.fromDTO(dto);
+        entidade.setDisciplina(disciplina);
 
         daoFeedback.save(entidade);
 
@@ -63,12 +65,12 @@ public class DisciplinaService {
         return feedbacks.stream().map(feedback -> FeedbackDisciplinaDTO.fromEntity(feedback)).collect(Collectors.toList());
     }
 
-    public List<FeedbackDisciplina> obterFeedbackPorDisciplina(String codigo){
-        Disciplina disciplina = daoDisciplina.findOneByCodigo(codigo);
-        if(disciplina != null){
-            List<FeedbackDisciplina> feedbacks = daoFeedback.findAllByCodigo(disciplina);
-            return feedbacks;
-        }
-        return null;
-    }
+//    public List<FeedbackDisciplina> obterFeedbackPorDisciplina(String codigo){
+//        Disciplina disciplina = dao.findOneByCodigo(codigo);
+//        if(disciplina != null){
+//            List<FeedbackDisciplina> feedbacks = daoFeedback.findAllByCodigo(disciplina);
+//            return feedbacks;
+//        }
+//        return null;
+//    }
 }

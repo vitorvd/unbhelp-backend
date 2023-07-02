@@ -22,15 +22,22 @@ public class FeedbackDisciplina {
     @Column(nullable = false)
     private String texto;
 
+    @Column(nullable = false)
+    private String anoSemestre;
+
+    @Column(nullable = false)
+    private double avaliacao;
+
     @ManyToOne
     @JoinColumn(name = "disciplina_codigo", referencedColumnName = "codigo")
-    private Disciplina codigo;
+    private Disciplina disciplina;
 
     public static FeedbackDisciplina fromDTO(FeedbackDisciplinaDTO dto){
         FeedbackDisciplina feedback = new FeedbackDisciplina().builder()
                 .id(dto.getId())
                 .texto(dto.getTexto())
-                .codigo(Disciplina.fromDTO(dto.getDisciplinaDTO()))
+                .anoSemestre(dto.getAnoSemestre())
+                .avaliacao(dto.getAvaliacao())
                 .build();
         return feedback;
     }
