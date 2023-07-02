@@ -7,11 +7,11 @@ import java.util.regex.Pattern;
 
 public class ValidacaoUsuario {
 
-    private static String regexEmail = "^(1[0-9]|9[0-9])((00|01|10))[0-9]{5}@aluno\\.unb\\.br$";
+    private static String regexEmail = "^[A-Za-z0-9]+@aluno\\.unb\\.br$";
     private static Pattern patternEmail = Pattern.compile(regexEmail);
     private static String regexPassword = "^(?=.*\\d.*\\d.*\\d)(?=.*[a-z].*[a-z].*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$";
     private static Pattern patternPassword = Pattern.compile(regexPassword);
-    private static String regexRegister = "^(1[0-9]|9[0-9])((00|01|10))[0-9]{5}$";
+    private static String regexRegister = "^\\d{9}$";
     private static Pattern patternRegister = Pattern.compile(regexRegister);
 
     public static void validacaoEmail(String email){
@@ -28,9 +28,9 @@ public class ValidacaoUsuario {
         if(password == null)
             throw new InvalidParameterException("Senha não pode ser nula.");
 
-        Matcher matcher = patternPassword.matcher(password);
-        if(!matcher.matches())
-            throw new InvalidParameterException("Senha inválida.");
+//        Matcher matcher = patternPassword.matcher(password);
+//        if(!matcher.matches())
+//            throw new InvalidParameterException("Senha inválida.");
     }
 
     public static void validacaoMatricula(String register){
