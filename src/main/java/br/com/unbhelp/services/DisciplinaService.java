@@ -1,8 +1,13 @@
 package br.com.unbhelp.services;
 
+import br.com.unbhelp.dao.FeedbackDisciplinaDAO;
+import br.com.unbhelp.dtos.DisciplinaDTO;
+import br.com.unbhelp.dtos.FeedbackDisciplinaDTO;
 import br.com.unbhelp.entities.Disciplina;
 import br.com.unbhelp.dao.DisciplinaDAO;
-import dtos.DisciplinaDTO;
+import br.com.unbhelp.entities.FeedbackDisciplina;
+import br.com.unbhelp.dtos.DisciplinaDTO;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.Produces;
 import javassist.NotFoundException;
@@ -21,6 +26,13 @@ public class DisciplinaService {
     @Autowired
     private DisciplinaDAO dao;
 
+    @Autowired
+    private FeedbackDisciplinaDAO daoFeedback;
+
+    @Autowired
+    private DisciplinaDAO daoDisciplina;
+
+
     public DisciplinaDTO obterDisciplinaPorCodigo(String codigo) throws NotFoundException{
         Disciplina entidade = dao.findOneByCodigo(codigo);
 
@@ -36,4 +48,27 @@ public class DisciplinaService {
         return entidades.stream().map(disciplina -> DisciplinaDTO.fromEntity(disciplina)).collect(Collectors.toList());
     }
 
+    @Transactional
+    public FeedbackDisciplinaDTO criarFeedback(FeedbackDisciplinaDTO dto){
+        FeedbackDisciplina entidade = FeedbackDisciplina.fromDTO(dto);
+
+        daoFeedback.save(entidade);
+
+        dto.setId(entidade.getId());
+        return dto;
+    }
+    public List<FeedbackDisciplinaDTO> obterTodosFeedbacks(){
+        List<FeedbackDisciplina> feedbacks = daoFeedback.findAll();
+
+        return feedbacks.stream().map(feedback -> FeedbackDisciplinaDTO.fromEntity(feedback)).collect(Collectors.toList());
+    }
+
+    public List<FeedbackDisciplina> obterFeedbackPorDisciplina(String codigo){
+        Disciplina disciplina = daoDisciplina.findOneByCodigo(codigo);
+        if(disciplina != null){
+            List<FeedbackDisciplina> feedbacks = daoFeedback.findAllByCodigo(disciplina);
+            return feedbacks;
+        }
+        return null;
+    }
 }
