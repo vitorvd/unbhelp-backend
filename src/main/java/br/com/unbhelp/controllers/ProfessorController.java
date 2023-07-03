@@ -34,11 +34,19 @@ public class ProfessorController {
         }
     }
 
-    @GetMapping("/{nome}")
+    @GetMapping
     @Consumes(MediaType.APPLICATION_JSON_VALUE)
     @Produces(MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity obterFeedbackPorProfessor(@PathVariable String nome){
-        List<FeedbackProfessor> feedbacksList = service.obterFeedbackPorProfessor(nome);
+    public ResponseEntity obterFeedbacksPorFiltro(){
+        List<FeedbackProfessorDTO> feedbacksList = service.obterTodosFeedbacks();
+        return ResponseEntity.status(HttpStatus.OK).body(feedbacksList);
+    }
+
+    @PostMapping("/filtro")
+    @Consumes(MediaType.APPLICATION_JSON_VALUE)
+    @Produces(MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity obterFeedbacksPorFiltro(@RequestBody FeedbackProfessorDTO filtro){
+        List<FeedbackProfessor> feedbacksList = service.obterFeedbackPorFiltro(filtro);
         return ResponseEntity.status(HttpStatus.OK).body(feedbacksList);
     }
 

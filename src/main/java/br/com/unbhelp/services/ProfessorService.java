@@ -6,17 +6,13 @@ import br.com.unbhelp.dtos.FeedbackProfessorDTO;
 import br.com.unbhelp.dtos.ProfessorDTO;
 import br.com.unbhelp.entities.FeedbackProfessor;
 import br.com.unbhelp.entities.Professor;
-import br.com.unbhelp.dtos.ProfessorDTO;
+import jakarta.persistence.criteria.Predicate;
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.Produces;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.print.attribute.standard.Media;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -83,13 +79,19 @@ public class ProfessorService {
     }
 
     @Transactional
-    public List<FeedbackProfessor> obterFeedbackPorProfessor(String nome){
-        Professor professor = dao.findOneByNome(nome);
-        if(professor != null) {
-            List<FeedbackProfessor> feedbacks = daoFeedback.findAllByProfessor(professor);
-            return feedbacks;
-        }
-        return null;
+    public List<FeedbackProfessor> obterFeedbackPorFiltro(FeedbackProfessorDTO filtro){
+        return this.daoFeedback.findAll(((root, query, builder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            if(filtro.getNomeCompleto() != null)
+                predicates.add(builder.like(builder.lower(root.get("professor").get("nome")), filtro.getNomeCompleto().toLowerCase()));
+
+            predicates.add(builder.equal(root.get("trabalho"), filtro.isTrabalho()));
+            predicates.add(builder.equal(root.get("chamada"), filtro.isChamada()));
+            predicates.add(builder.equal(root.get("prova"), filtro.isProva()));
+
+            return builder.and(predicates.toArray(new Predicate[predicates.size()]));
+        }));
     }
 
 
