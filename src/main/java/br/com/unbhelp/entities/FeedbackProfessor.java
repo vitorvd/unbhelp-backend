@@ -35,6 +35,10 @@ public class FeedbackProfessor {
     private String explicacao;
 
     @ManyToOne
+    @JoinColumn(name = "usuario", referencedColumnName = "matricula")
+    private Usuario usuario;
+
+    @ManyToOne
     @JoinColumn(name = "professor", referencedColumnName = "id")
     private Professor professor;
 
