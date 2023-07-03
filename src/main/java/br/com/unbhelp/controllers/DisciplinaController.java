@@ -36,22 +36,17 @@ public class DisciplinaController {
     @GetMapping("/{codigo}")
     @Consumes(MediaType.APPLICATION_JSON_VALUE)
     @Produces(MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity obterDisciplinaPorCodigo(@PathVariable String codigo){
-
-        try{
-            DisciplinaDTO disciplinaDTO = service.obterDisciplinaPorCodigo(codigo);
-            return ResponseEntity.status(HttpStatus.FOUND).body(disciplinaDTO);
-        }catch (NotFoundException exception){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
-        }
+    public ResponseEntity obterFeedbackDisciplinaPorCodigo(@PathVariable String codigo){
+        List<FeedbackDisciplinaDTO> feedbacksList = service.obterFeedbackPorDisciplina(codigo);
+        return ResponseEntity.status(HttpStatus.OK).body(feedbacksList);
     }
 
-    @GetMapping("/obter-todas")
+    @GetMapping("/obter-feedbacks")
     @Produces(MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity obterTodasDisciplnas(){
-        List<DisciplinaDTO> disciplinaDTOList = service.obterTodasDisciplinas();
+        List<FeedbackDisciplinaDTO> disciplinaDTOList = service.obterTodasDisciplinas();
 
-        return ResponseEntity.status(HttpStatus.FOUND).body(disciplinaDTOList);
+        return ResponseEntity.status(HttpStatus.OK).body(disciplinaDTOList);
     }
 
     @PostMapping
@@ -59,21 +54,12 @@ public class DisciplinaController {
     @Produces(MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity criarFeedback(@RequestHeader("authorization") String token, @RequestBody CriarFeedbackDTO feedback){
         try {
-            service.criarFeedback(feedback.getDisciplina());
+            service.criarFeedback(feedback.getDisciplina(), this.contextoManager.obterUsuarioPorToken(token));
             professorService.criarFeedback(feedback.getProfessor(), this.contextoManager.obterUsuarioPorToken(token));
             return ResponseEntity.status(HttpStatus.CREATED).body("Feedback registrado com sucesso!");
         } catch (NotFoundException e) {
             throw new RuntimeException(e);
         }
     }
-
-
-//    @GetMapping("/{disciplina}")
-//    @Consumes(MediaType.APPLICATION_JSON_VALUE)
-//    @Produces(MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity obterFeedbackPorDisciplina(@PathVariable String disciplina){
-//        List<FeedbackDisciplina> feedbacksList = service.obterFeedbackPorDisciplina(disciplina);
-//        return ResponseEntity.status(HttpStatus.OK).body(feedbacksList);
-//    }
 
 }

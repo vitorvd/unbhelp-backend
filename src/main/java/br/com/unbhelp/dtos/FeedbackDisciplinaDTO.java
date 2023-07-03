@@ -22,7 +22,9 @@ public class FeedbackDisciplinaDTO {
 
     private double avaliacao;
 
-    private DisciplinaDTO disciplinaDTO;
+    private UsuarioDTO usuario;
+
+    private DisciplinaDTO disciplina;
 
     public static FeedbackDisciplinaDTO fromEntity(FeedbackDisciplina feedback){
         FeedbackDisciplinaDTO dto = new FeedbackDisciplinaDTO().builder()
@@ -31,7 +33,8 @@ public class FeedbackDisciplinaDTO {
                 .anoSemestre(feedback.getAnoSemestre())
                 .codigo(feedback.getDisciplina().getCodigo())
                 .avaliacao(feedback.getAvaliacao())
-                .disciplinaDTO(DisciplinaDTO.fromEntity(feedback.getDisciplina()))
+                .usuario(UsuarioDTO.fromEntity(feedback.getUsuario()))
+                .disciplina(DisciplinaDTO.fromEntity(feedback.getDisciplina()))
                 .build();
         return dto;
 

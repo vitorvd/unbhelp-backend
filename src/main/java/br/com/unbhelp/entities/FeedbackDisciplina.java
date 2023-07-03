@@ -29,6 +29,10 @@ public class FeedbackDisciplina {
     private double avaliacao;
 
     @ManyToOne
+    @JoinColumn(name = "usuario", referencedColumnName = "matricula")
+    private Usuario usuario;
+
+    @ManyToOne
     @JoinColumn(name = "disciplina_codigo", referencedColumnName = "codigo")
     private Disciplina disciplina;
 

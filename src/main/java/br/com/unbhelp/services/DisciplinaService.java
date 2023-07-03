@@ -3,10 +3,14 @@ package br.com.unbhelp.services;
 import br.com.unbhelp.dao.FeedbackDisciplinaDAO;
 import br.com.unbhelp.dtos.DisciplinaDTO;
 import br.com.unbhelp.dtos.FeedbackDisciplinaDTO;
+import br.com.unbhelp.dtos.FeedbackProfessorDTO;
 import br.com.unbhelp.entities.Disciplina;
 import br.com.unbhelp.dao.DisciplinaDAO;
 import br.com.unbhelp.entities.FeedbackDisciplina;
 import br.com.unbhelp.dtos.DisciplinaDTO;
+import br.com.unbhelp.entities.FeedbackProfessor;
+import br.com.unbhelp.entities.Usuario;
+import jakarta.persistence.criteria.Predicate;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.Produces;
@@ -16,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -38,14 +43,14 @@ public class DisciplinaService {
         return DisciplinaDTO.fromEntity(entidade);
     }
 
-    public List<DisciplinaDTO> obterTodasDisciplinas() {
-        List<Disciplina> entidades = dao.findAll();
+    public List<FeedbackDisciplinaDTO> obterTodasDisciplinas() {
+        List<FeedbackDisciplina> entidades = daoFeedback.findAll();
 
-        return entidades.stream().map(disciplina -> DisciplinaDTO.fromEntity(disciplina)).collect(Collectors.toList());
+        return entidades.stream().map(disciplina -> FeedbackDisciplinaDTO.fromEntity(disciplina)).collect(Collectors.toList());
     }
 
     @Transactional
-    public FeedbackDisciplinaDTO criarFeedback(FeedbackDisciplinaDTO dto) throws NotFoundException {
+    public FeedbackDisciplinaDTO criarFeedback(FeedbackDisciplinaDTO dto, Usuario usuario) throws NotFoundException {
         Disciplina disciplina = dao.findOneByCodigo(dto.getCodigo());
 
         if(disciplina == null)
@@ -53,6 +58,7 @@ public class DisciplinaService {
 
         FeedbackDisciplina entidade = FeedbackDisciplina.fromDTO(dto);
         entidade.setDisciplina(disciplina);
+        entidade.setUsuario(usuario);
 
         daoFeedback.save(entidade);
 
@@ -65,12 +71,18 @@ public class DisciplinaService {
         return feedbacks.stream().map(feedback -> FeedbackDisciplinaDTO.fromEntity(feedback)).collect(Collectors.toList());
     }
 
-//    public List<FeedbackDisciplina> obterFeedbackPorDisciplina(String codigo){
-//        Disciplina disciplina = dao.findOneByCodigo(codigo);
-//        if(disciplina != null){
-//            List<FeedbackDisciplina> feedbacks = daoFeedback.findAllByCodigo(disciplina);
-//            return feedbacks;
-//        }
-//        return null;
-//    }
+    public List<FeedbackDisciplinaDTO> obterFeedbackPorDisciplina(String codigo){
+        List<FeedbackDisciplina> feedbackDisciplinas = this.daoFeedback.findAll(((root, query, builder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            if(codigo != null)
+                predicates.add(builder.like(builder.lower(root.get("disciplina").get("codigo")), codigo.toLowerCase()));
+
+            return builder.and(predicates.toArray(new Predicate[predicates.size()]));
+        }));
+
+        List<FeedbackDisciplinaDTO> dtos = feedbackDisciplinas.stream().map(fb -> FeedbackDisciplinaDTO.fromEntity(fb)).collect(Collectors.toList());
+
+        return dtos;
+    }
 }
