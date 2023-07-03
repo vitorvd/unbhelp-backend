@@ -1,5 +1,6 @@
 package br.com.unbhelp.controllers;
 
+import br.com.unbhelp.contexto.ContextoManager;
 import br.com.unbhelp.dao.DisciplinaDAO;
 import br.com.unbhelp.dtos.CriarFeedbackDTO;
 import br.com.unbhelp.dtos.FeedbackDisciplinaDTO;
@@ -29,6 +30,9 @@ public class DisciplinaController {
     @Autowired
     private ProfessorService professorService;
 
+    @Autowired
+    private ContextoManager contextoManager;
+
     @GetMapping("/{codigo}")
     @Consumes(MediaType.APPLICATION_JSON_VALUE)
     @Produces(MediaType.APPLICATION_JSON_VALUE)
@@ -53,14 +57,14 @@ public class DisciplinaController {
     @PostMapping
     @Consumes(MediaType.APPLICATION_JSON_VALUE)
     @Produces(MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity criarFeedback(@RequestBody CriarFeedbackDTO feedback){
+    public ResponseEntity criarFeedback(@RequestHeader("authorization") String token, @RequestBody CriarFeedbackDTO feedback){
         try {
             service.criarFeedback(feedback.getDisciplina());
-            professorService.criarFeedback(feedback.getProfessor());
+            professorService.criarFeedback(feedback.getProfessor(), this.contextoManager.obterUsuarioPorToken(token));
+            return ResponseEntity.status(HttpStatus.CREATED).body("Feedback registrado com sucesso!");
         } catch (NotFoundException e) {
             throw new RuntimeException(e);
         }
-        return ResponseEntity.status(HttpStatus.CREATED).body("Feedback registrado com sucesso!");
     }
 
 

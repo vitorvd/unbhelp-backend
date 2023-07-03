@@ -37,7 +37,7 @@ public class ProfessorController {
     @GetMapping
     @Consumes(MediaType.APPLICATION_JSON_VALUE)
     @Produces(MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity obterFeedbacksPorFiltro(){
+    public ResponseEntity obterTodosFeedbacks(){
         List<FeedbackProfessorDTO> feedbacksList = service.obterTodosFeedbacks();
         return ResponseEntity.status(HttpStatus.OK).body(feedbacksList);
     }
@@ -46,7 +46,10 @@ public class ProfessorController {
     @Consumes(MediaType.APPLICATION_JSON_VALUE)
     @Produces(MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity obterFeedbacksPorFiltro(@RequestBody FeedbackProfessorDTO filtro){
-        List<FeedbackProfessor> feedbacksList = service.obterFeedbackPorFiltro(filtro);
+        if(filtro.getNomeCompleto() != null && filtro.getNomeCompleto().length() == 0)
+            filtro.setNomeCompleto(null);
+
+        List<FeedbackProfessorDTO> feedbacksList = service.obterFeedbackPorFiltro(filtro);
         return ResponseEntity.status(HttpStatus.OK).body(feedbacksList);
     }
 

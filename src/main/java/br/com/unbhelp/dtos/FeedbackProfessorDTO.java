@@ -26,6 +26,8 @@ public class FeedbackProfessorDTO {
 
     private String explicacao;
 
+    private UsuarioDTO usuario;
+
     private ProfessorDTO professorDTO;
 
     public static FeedbackProfessorDTO fromEntity(FeedbackProfessor feedback){
@@ -37,6 +39,7 @@ public class FeedbackProfessorDTO {
                 .avaliacao(feedback.getAvaliacao())
                 .explicacao(feedback.getExplicacao())
                 .nomeCompleto(feedback.getProfessor().getNome())
+                .usuario(UsuarioDTO.fromEntity(feedback.getUsuario()))
                 .professorDTO(ProfessorDTO.fromEntity(feedback.getProfessor()))
                 .build();
 

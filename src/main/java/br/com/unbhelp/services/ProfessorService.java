@@ -6,6 +6,7 @@ import br.com.unbhelp.dtos.FeedbackProfessorDTO;
 import br.com.unbhelp.dtos.ProfessorDTO;
 import br.com.unbhelp.entities.FeedbackProfessor;
 import br.com.unbhelp.entities.Professor;
+import br.com.unbhelp.entities.Usuario;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.transaction.Transactional;
 import javassist.NotFoundException;
@@ -58,7 +59,7 @@ public class ProfessorService {
     }
 
     @Transactional
-    public FeedbackProfessorDTO criarFeedback(FeedbackProfessorDTO dto) throws NotFoundException {
+    public FeedbackProfessorDTO criarFeedback(FeedbackProfessorDTO dto, Usuario usuario) throws NotFoundException {
         Professor professor = dao.findOneByNome(dto.getNomeCompleto());
 
         if(professor == null)
@@ -66,6 +67,8 @@ public class ProfessorService {
 
         FeedbackProfessor entidade = FeedbackProfessor.fromDTO(dto);
         entidade.setProfessor(professor);
+        entidade.setUsuario(usuario);
+
         daoFeedback.save(entidade);
 
         return dto;
@@ -79,8 +82,8 @@ public class ProfessorService {
     }
 
     @Transactional
-    public List<FeedbackProfessor> obterFeedbackPorFiltro(FeedbackProfessorDTO filtro){
-        return this.daoFeedback.findAll(((root, query, builder) -> {
+    public List<FeedbackProfessorDTO> obterFeedbackPorFiltro(FeedbackProfessorDTO filtro){
+        List<FeedbackProfessor> feedbackProfessores = this.daoFeedback.findAll(((root, query, builder) -> {
             List<Predicate> predicates = new ArrayList<>();
 
             if(filtro.getNomeCompleto() != null)
@@ -92,6 +95,10 @@ public class ProfessorService {
 
             return builder.and(predicates.toArray(new Predicate[predicates.size()]));
         }));
+
+        List<FeedbackProfessorDTO> dtos = feedbackProfessores.stream().map(fb -> FeedbackProfessorDTO.fromEntity(fb)).collect(Collectors.toList());
+
+        return dtos;
     }
 
 
