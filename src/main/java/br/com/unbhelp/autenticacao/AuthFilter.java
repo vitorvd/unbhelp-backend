@@ -14,9 +14,6 @@ import java.io.IOException;
 @Component
 public class AuthFilter implements Filter {
 
-    @Autowired
-    private ContextoManager contextManager;
-
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
@@ -35,14 +32,6 @@ public class AuthFilter implements Filter {
             response.setHeader("Access-Control-Allow-Origin", "*");
             response.setHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
             response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-        }
-
-        if (!request.getRequestURI().contains("auth")) {
-            final String token = request.getHeaders("authorization").nextElement();
-
-            if (token == null || !this.contextManager.existeToken(token))
-                throw new AuthException("Você não está autenticado na aplicação.");
-
         }
 
         filterChain.doFilter(request, response);

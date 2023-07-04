@@ -1,7 +1,7 @@
 version: '3'
 services:
   db:
-    container_name: postgres-unbhelp
+    container_name: unbhelp-postgres
     image: postgres
     restart: always
     environment:
@@ -10,5 +10,21 @@ services:
       POSTGRES_DB: unbhelp
     ports:
       - 5432:5432
+    networks:
+      - unbhelp-network
 #    volumes:
 #      - ./data:/var/lib/postgresql/data
+  backend:
+    container_name: unbhelp-backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    networks:
+      - unbhelp-network
+
+networks:
+  unbhelp-network:

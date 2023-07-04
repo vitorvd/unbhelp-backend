@@ -21,6 +21,8 @@ public class UsuarioDTO {
 
     private String senha;
 
+    private String novaSenha;
+
     private String apelido;
 
     private Curso curso;

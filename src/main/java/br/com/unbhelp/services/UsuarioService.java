@@ -37,6 +37,23 @@ public class UsuarioService {
         return dto;
     }
 
+    @Transactional
+    public UsuarioDTO editarUsuario(UsuarioDTO dto) {
+        Usuario entidade = dao.findOneByMatricula(dto.getMatricula());
+
+        if(dto.getNovaSenha() != null && dto.getSenha() != null && entidade.getSenha().equals(dto.getSenha()))
+            entidade.setSenha(dto.getNovaSenha());
+
+        entidade.setEmail(dto.getEmail());
+        entidade.setCurso(dto.getCurso());
+        entidade.setApelido(dto.getApelido());
+
+        dao.save(entidade);
+
+        dto.setSenha(null);
+        return dto;
+    }
+
     public UsuarioDTO obterUsuarioPorMatriculaOuEmail(String chave) throws NotFoundException {
         Usuario entidade = dao.findOneByMatricula(chave);
 
@@ -47,16 +64,6 @@ public class UsuarioService {
             throw new NotFoundException(String.format("Usuário (%s) não encontrado.", chave));
 
         return UsuarioDTO.fromEntity(entidade);
-    }
-
-    public UsuarioDTO editarUsuario(String matricula, UsuarioDTO usuarioEditado) {
-        usuarioEditado.setMatricula(matricula);
-
-        obterUsuarioPorMatriculaOuEmail(matricula);
-
-        Usuario usuario = dao.save(Usuario.fromDTO(usuarioEditado));
-
-        return usuarioEditado;
     }
 
 }

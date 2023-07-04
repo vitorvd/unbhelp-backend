@@ -39,29 +39,31 @@ public class UsuarioController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioDTO);
     }
+
+    @PutMapping("/{matricula}")
+    @Consumes(MediaType.APPLICATION_JSON_VALUE)
+    @Produces(MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity atualizar(@RequestBody UsuarioDTO usuarioDTO){
+
+        try {
+            ValidacaoUsuario.validacaoEmail(usuarioDTO.getEmail());
+            ValidacaoUsuario.validacaoMatricula(usuarioDTO.getMatricula());
+            usuarioDTO = service.editarUsuario(usuarioDTO);
+            return ResponseEntity.status(HttpStatus.OK).body(usuarioDTO);
+        }catch (InvalidParameterException exception){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+        }
+    }
     @GetMapping("/{chave}")
     @Consumes(MediaType.APPLICATION_JSON_VALUE)
     @Produces(MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity obterUsuarioPorMatriculaOuEmail(@PathVariable String chave) {
         try {
             UsuarioDTO usuarioDTO = service.obterUsuarioPorMatriculaOuEmail(chave);
-            return ResponseEntity.status(HttpStatus.FOUND).body(usuarioDTO);
+            return ResponseEntity.status(HttpStatus.OK).body(usuarioDTO);
         }catch (NotFoundException exception) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
         }
     }
-
-    @PutMapping("/{matricula}")
-    @Consumes(MediaType.APPLICATION_JSON_VALUE)
-    @Produces(MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity obterUsuarioPorMatriculaOuEmail(@PathVariable String matricula, @RequestBody UsuarioDTO usuarioDTO) {
-        try {
-            service.editarUsuario(matricula, usuarioDTO);
-            return ResponseEntity.status(HttpStatus.OK).body(String.format("Usuário (%s) editado.", matricula));
-        }catch (NotFoundException exception) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
-        }
-    }
-
 
 }
